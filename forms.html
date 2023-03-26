@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>Forms</title>
+	</head>
+	<style>
+  		label {
+        		display: inline-block;
+        		width: 150px;
+        		text-align: right;
+      			}
+		h1{
+			text-align : center;
+		}
+	</style>
+	<script>
+		function genratePDF() {
+            		const { jsPDF } = window.jspdf;
+ 
+            var doc = new jsPDF('l', 'mm', [1500, 1400]);
+            var pdfjs = document.querySelector(resumediv);
+ 
+            doc.html(pdfjs, {
+                callback: function(doc) {
+                    doc.save("resume.pdf");
+                },
+                x: 12,
+                y: 12
+            }); 
+	    return true;              
+        }
+	   function preview(){
+			var name = document.forms["Resume"]["namebox"].value;
+			var email = document.forms["Resume"]["emailbox"].value;
+			var Github = document.forms["Resume"]["githubbox"].value;
+			var lk = document.forms["Resume"]["linkedinbox"].value;
+			document.write("<h1>Resume Preview</h1>");
+			document.write("Name : ", name);
+			document.write("<br>");
+			document.write("Email : ", email);
+			document.write("<br>");
+			document.write("GitHub : ", Github);
+			document.write("<br>");
+			document.write("Linkedin : ", lk);
+			document.write("<br>");
+			//document.write("<input type = "button" name = "generatePDF" value = "Generate PDF" onclick = "generatePDF()"/>");
+		}
+	</script> 
+			
+	<body>
+		<h1>Resume</h1>
+		<div id = "resumediv">
+		<form name = "Resume" onsubmit = "return generatePDF()">
+			<label>Name :     </label>
+			<input type = "text" name = "namebox" required/><br><br>
+			<label>Email :    </label>
+			<input type = "text" name = "emailbox" pattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" required/><br><br>
+			<label>Github :   </label>
+			<input type = "text" name = "githubbox" pattern = "^(github.io)\/.+"/><br><br>
+			<label>Linkedin : </label>
+			<input type = "text" name = "linkedinbox" pattern = "^(linkedin.com)\/.+" /><br><br>
+			<label>Photo : </label>
+			<input type = "file" name = "fileupload"/><br><br>
+			<label>        </label>
+			<input type = "button" name = "PreviewButton" value = "Preview" onclick = "preview()"/>
+			<input type = "submit" name = "SubmitButton" value = "Submit"/><br><br>
+		</form>
+		</div>
+	</body>
+		
+</html>
